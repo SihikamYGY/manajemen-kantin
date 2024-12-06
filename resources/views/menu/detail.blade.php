@@ -7,13 +7,14 @@
             <div class="card">
                 <div class="card-header">
                   {{-- Bagian Menu Start--}}
-                  <form action="{{route('menu.store')}}" method="post" enctype="multipart/form-data">
+                  <form action="{{route('menu.update', $data->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{method_field('PUT')}}
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Nama Menu</label>
-                          <input type="text" name="nama_menu" class="form-control">
+                          <input type="text" name="nama_menu" value="{{$data->nama_menu}}" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -33,13 +34,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Harga</label>
-                          <input type="number" name="harga" class="form-control">
+                          <input type="number" name="harga" value="{{$data->harga}}" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Stock</label>
-                          <input type="number" name="stok" class="form-control">
+                          <input type="number" name="stok" value="{{$data->stok}}" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -48,13 +49,13 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>Gambar</label>
-                          <input type="file" name="gambar" class="form-control">
+                          <input type="file" name="gambar" value="{{$data->gambar}}" class="form-control">
                         </div>
                       </div>
                     </div>
 
                     <div class="form-group mt-4 mb-4">
-                      <button type="submit" class="btn btn-primary">Tambah Menu</button>
+                      <button type="submit" class="btn btn-primary">Update Menu</button>
                     </div>
                   </form>
                   {{-- Bagian Menu End --}}
@@ -64,37 +65,36 @@
                 <div class="card-body mt-4">
                   {{-- Bagian Menu Table Start --}}
                     <div class="table-responsive">
-                      <table class="table table-hover">
+                      <table class="table table-bordered">
                         <thead>
-                          {{-- <th>Gambar</th> --}}
-                          <th>Nama Menu</th>
-                          <th>Kategori</th>
-                          <th>Harga</th>
-                          <th>Stock</th>
-                        </thead>
-                        <tbody>
-                          @foreach ($data as $item)
                           <tr>
-                            <td>{{$item->nama_menu}}</td>
-                            <td>{{$item->category->nama_kategori}}</td>
-                            <td>{{$item->harga}}</td>
-                            <td>{{$item->stok}}</td>
-                            <td>
-                              <form action="#" method="post">
-                                @csrf
-                                {{method_field('delete')}}
-
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                <a href="{{route('menu.show', $item->id)}}" class="btn btn-info">Detail</a>
-                              </form>
-                            </td>
+                            <th>Nama Menu</th>
+                            <td>{{$data->nama_menu}}</td>
                           </tr>
-                          @endforeach
-                        </tbody>
+                          <tr>
+                            <th>Kategori</th>
+                            <td>{{$data->category->nama_kategori}}</td>
+                          </tr>
+                          <tr>
+                            <th>Harga</th>
+                            <td>{{$data->harga}}</td>
+                          </tr>
+                          <tr>
+                            <th>Stok</th>
+                            <td>{{$data->stok}}</td>
+                          </tr>
+                          
+                        </thead>
                       </table>
                     </div>
                   {{-- Bagian Menu Table End --}}
                 </div>
+            </div>
+
+            <div class="card mt-3">
+              <div class="card-body">
+                <img src="{{asset('storage/images/menu/'.$data->gambar)}}" alt="{{$data->nama_menu}}">
+              </div>
             </div>
         </div>
     </div>
